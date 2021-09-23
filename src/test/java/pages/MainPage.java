@@ -59,7 +59,7 @@ public class MainPage {
      * @throws IOException Когда файл параметров не доступен
      */
     public ItemPage goToItemPage(final int number) throws IOException {
-        Waiter.waitListOfElementsNotEmpty(driver, items);
+        Waiter.waitUntilVisible(driver, items);
         WebElement itemToAdd = items.get(number - 1);
         itemToAdd.click();
         return new ItemPage(driver);

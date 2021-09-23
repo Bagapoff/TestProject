@@ -62,7 +62,7 @@ public class Waiter {
      * @param webDriver   web driver
      * @param webElements список элементы
      */
-    public static void waitListOfElementsNotEmpty(
+    public static void waitUntilVisible(
             final WebDriver webDriver,
             final List<WebElement> webElements) {
         new WebDriverWait(webDriver, explicitTimeout).until(ExpectedConditions
