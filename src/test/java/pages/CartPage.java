@@ -16,7 +16,7 @@ public class CartPage {
     private WebDriver driver;
 
     /**
-     * Навзание продукта.
+     * Название продукта.
      */
     @FindBy(css = ".good-info__title")
     private WebElement productTitle;

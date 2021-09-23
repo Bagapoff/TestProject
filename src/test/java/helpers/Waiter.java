@@ -6,13 +6,23 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Waiter {
 
     /**
-     * Основание системы счисления для приведения к long.
+     * Явное ожидание.
      */
-    private static final int RADIX = 10;
+    private static long explicitTimeout;
+
+    static {
+        try {
+            explicitTimeout = new Long(ParametersProvider
+                    .getProperty("wait"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Не вызывается.
@@ -20,20 +30,15 @@ public class Waiter {
     private Waiter() {
     }
 
-
     /**
      * Ожидание невидимости элемента.
      *
      * @param webDriver  web driver
      * @param webElement элемент на странице
-     * @throws IOException когда файл параметров недоступен
      */
     public static void waitUntilInvisible(
             final WebDriver webDriver,
-            final WebElement webElement)
-            throws IOException {
-        long explicitTimeout = Long.parseLong(ParametersProvider
-                .getProperty("wait"), RADIX);
+            final WebElement webElement) {
         new WebDriverWait(webDriver, explicitTimeout).until(ExpectedConditions
                 .invisibilityOf(webElement));
     }
@@ -43,16 +48,24 @@ public class Waiter {
      *
      * @param webDriver  web driver
      * @param webElement элемент на странице
-     * @throws IOException когда файл параметров недоступен
      */
     public static void waitUntilVisible(
             final WebDriver webDriver,
-            final WebElement webElement)
-            throws IOException {
-        long explicitTimeout = Long.parseLong(ParametersProvider
-                .getProperty("wait"), RADIX);
+            final WebElement webElement) {
         new WebDriverWait(webDriver, explicitTimeout).until(ExpectedConditions
                 .visibilityOf(webElement));
     }
 
+    /**
+     * Ожидание видимости списка элементов.
+     *
+     * @param webDriver   web driver
+     * @param webElements список элементы
+     */
+    public static void waitListOfElementsNotEmpty(
+            final WebDriver webDriver,
+            final List<WebElement> webElements) {
+        new WebDriverWait(webDriver, explicitTimeout).until(ExpectedConditions
+                .visibilityOfAllElements(webElements));
+    }
 }
