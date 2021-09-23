@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <entry key="mainWebUrl">https://www.wildberries.ru/</entry>
+    <entry key="productName">Преступление и наказание</entry>
+    <entry key="expectedEmptyCartMessage">В корзине пока ничего нет</entry>
+
+    <entry key="timeout">10</entry>
+</properties>
