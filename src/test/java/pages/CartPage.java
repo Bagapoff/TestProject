@@ -1,9 +1,12 @@
 package pages;
 
+import helpers.Waiter;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.IOException;
 
 public class CartPage {
 
@@ -41,30 +44,32 @@ public class CartPage {
     }
 
     /**
-     * Получение названия продукта.
+     * Проверка названия названия продукта в уорзине.
      *
-     * @return String
+     * @return boolean
      */
-    public String getProductTitle() {
-        return productTitle.getText();
+    public boolean isProductTitleContains(final String text) {
+        return productTitle.getText().contains(text);
     }
 
     /**
      * Удаление продукта из корзины.
      *
      * @return CartPage
+     * @throws IOException когда файл параметров недоступен
      */
-    public CartPage deleteProduct() {
+    public CartPage deleteProduct() throws IOException {
         deleteProductButton.click();
+        Waiter.waitUntilInvisible(driver, productTitle);
         return this;
     }
 
     /**
-     * Получение сообщения о пустоте корзины.
+     * Проверка сообщения о пустоте корзины.
      *
      * @return String
      */
-    public String getEmptyCartMessage() {
-        return emptyCartMessage.getText();
+    public boolean isEmptyCartMessageContains(final String text) {
+        return emptyCartMessage.getText().contains(text);
     }
 }

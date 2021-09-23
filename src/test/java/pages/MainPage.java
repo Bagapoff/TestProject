@@ -1,11 +1,13 @@
 package pages;
 
+import helpers.Waiter;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.io.IOException;
 import java.util.List;
 
 public class MainPage {
@@ -54,9 +56,12 @@ public class MainPage {
      *
      * @param number номер товара в списке результатов поиска
      * @return ItemPage
+     * @throws IOException Когда файл параметров не доступен
      */
-    public ItemPage goToItemPage(final int number) {
-        items.get(number - 1).click();
+    public ItemPage goToItemPage(final int number) throws IOException {
+        WebElement itemToAdd = items.get(number - 1);
+        Waiter.waitUntilVisible(driver, itemToAdd);
+        itemToAdd.click();
         return new ItemPage(driver);
     }
 }

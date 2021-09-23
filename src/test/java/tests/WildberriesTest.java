@@ -1,17 +1,16 @@
 package tests;
 
+import helpers.DriverFactory;
 import helpers.ParametersProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import pages.CartPage;
 import pages.MainPage;
 
 import java.io.IOException;
-import java.time.Duration;
 
 public class WildberriesTest {
 
@@ -27,10 +26,8 @@ public class WildberriesTest {
      */
     @BeforeAll
     static void setUp() throws IOException {
-        webDriver = new ChromeDriver();
-        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(
-                Integer.parseInt(ParametersProvider.getProperty("timeout"))));
-        webDriver.manage().window().maximize();
+        webDriver = DriverFactory.createDriver();
+        webDriver.get(ParametersProvider.getProperty("mainWebUrl"));
     }
 
     /**
@@ -48,8 +45,6 @@ public class WildberriesTest {
      */
     @Test
     public void addAndRemoveItemToCartTest() throws IOException {
-        webDriver.get(ParametersProvider.getProperty("mainWebUrl"));
-
         String productName = ParametersProvider.getProperty("productName");
         String expectedEmptyCartMessage =
                 ParametersProvider.getProperty("expectedEmptyCartMessage");
@@ -59,10 +54,10 @@ public class WildberriesTest {
                 .goToItemPage(1)
                 .addToCartButtonClick()
                 .goToCartPage();
-        Assertions.assertTrue(cartPage.getProductTitle().contains(productName),
+        Assertions.assertTrue(cartPage.isProductTitleContains(productName),
                 "В корзину попал не тот продукт");
         cartPage.deleteProduct();
-        Assertions.assertTrue(cartPage.getEmptyCartMessage().contains(expectedEmptyCartMessage),
+        Assertions.assertTrue(cartPage.isEmptyCartMessageContains(expectedEmptyCartMessage),
                 "Продукт не был удалён из корзины");
     }
 }

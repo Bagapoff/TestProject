@@ -6,4 +6,7 @@
     <entry key="expectedEmptyCartMessage">В корзине пока ничего нет</entry>
 
     <entry key="timeout">10</entry>
+    <entry key="wait">15</entry>
+    <entry key="browser">chrome</entry>
+    <entry key="driverPath">C:\webdrivers\chromedriver.exe</entry>
 </properties>
