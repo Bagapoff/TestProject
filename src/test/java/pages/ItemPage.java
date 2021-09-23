@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -50,7 +51,7 @@ public class ItemPage {
      * @return CartPage
      */
     public CartPage goToCartPage() {
-        goToBasketLink.click();
+        new Actions(driver).moveToElement(goToBasketLink).click().perform();
         return new CartPage(driver);
     }
 }
